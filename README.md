@@ -26,6 +26,10 @@ After processing by the BRAMA agent, you will receive a comprehensive analysis o
 If the input contains multiple data types to check (domain, phone, email), we call agent tools one by one.
 Note: Some cases can work with errors. Error management needs to be improved.
 
+**Disclaimer:** The agent will process the information using the Anthropic API check https://www.anthropic.com/legal/consumer-terms.
+If you do not agree with the agent's conclusions or find an error, create an issue https://github.com/oborys/security-ai-agent-brama/issues
+
+
 # Installation
 
 Clone the repository

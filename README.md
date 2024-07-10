@@ -126,7 +126,7 @@ Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an imag
 
 **Work with URL**
 
-type in URL
+Type in URL
 ```bash
 http://117.222.254.157:39234/Mozi.m
 ```
@@ -136,9 +136,10 @@ Expected output:
 
 
 **Work with Screenshots**
+
 In the `img` folder of the reposytory there are a few screenshot of the messages that you can use.
 
-type in img
+Type in img
 ```bash
 Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an image, or 'education_mode' or 'quit' to exit: img
 ```
@@ -150,7 +151,12 @@ Expected output:
 ![img](img/agent-output-sample-image.png)
 
 **Work with Phone Numbers**
-Scam number 202-221-7923
+
+Type in number `202-221-7923`
+
+Expected output:
+
+![img](img/agent-output-sample-phone-number.png)
 
 ## Educational mode
 

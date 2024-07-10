@@ -171,3 +171,5 @@ Expected output:
 * Improve Educational components
 * Developed feature that can check public information authorized and verified person in socials and highlight which data is available for cybercrime and can be used against person
 * Sent reports about malicious/phishing URL or domains to the security organizations that collect this information
+* Multimodal audio recognition for phone calls using https://github.com/fixie-ai/ultravox
+* Add Agent Protocol for interaction with another agents https://agentprotocol.ai/

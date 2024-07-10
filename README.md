@@ -167,3 +167,7 @@ Expected output:
 ![img](img/educational_mode.png)
 
 ## Roadmap
+
+* Improve Educational components
+* Developed feature that can check public information authorized and verified person in socials and highlight which data is available for cybercrime and can be used against person
+* Sent reports about malicious/phishing URL or domains to the security organizations that collect this information

@@ -12,7 +12,7 @@ You can also use the educational mode to learn more about social engineering and
 Some platforms, like email services, constantly improve their spam filters, and cyber criminals are learning to bypass them. Many channels are hard to protect, like direct calls, SMS, and messengers. These channels are used for phishing, scams, and vishing.
 
 
-**BRAMA agent** is going to help users receive additional context regarding suspicious emails, messages, and SMS.
+*BRAMA agent* is going to help users receive additional context regarding suspicious emails, messages, and SMS.
 
 Agent utilize Anthropic Claude Models to analize the conext. 
 Together with information from 3d party APIs and resources, the agent can provide additional context:
@@ -25,9 +25,6 @@ After processing by the BRAMA agent, you will receive a comprehensive analysis o
 
 If the input contains multiple data types to check (domain, phone, email), we call agent tools one by one.
 Note: Some cases can work with errors. Error management needs to be improved.
-
-**Disclaimer:** The agent will process the information using the Anthropic API, check https://www.anthropic.com/legal/consumer-terms. 
-If you do not agree with the agent's conclusions or find an error, create an issue https://github.com/oborys/security-ai-agent-brama/issues
 
 # Installation
 
@@ -66,11 +63,11 @@ pip install -r requirements.txt
 
 ## Configuration. Set related API Key
 
-In the project utilized 3d party APIs.
+The project utilized 3d party APIs.
 
-Majoryty of APIs are free with usage limitation, you need register and retrive your API Key.
+A Majority of APIs are free with usage limitations; you need to register and retrieve your API Key.
 
-1. Get Anthropic API Key here [https://console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
+1. Get the Anthropic API Key here [https://console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
 
 Set Anthropic API Key as an environment variable in your virtual environment:
 
@@ -100,9 +97,9 @@ export BRAVE_API_KEY="YOUR_API_KEY"
 4. Get Voyage AI API Key here [https://dash.voyageai.com/api-keys](https://dash.voyageai.com/api-keys)
 
 Voyage AI provides cutting-edge embedding and rerankers.
-Embedding models are neural net models (e.g., transformers) that convert unstructured and complex data, such as documents, images, audios, videos, or tabular data, into dense numerical vectors (i.e. embeddings) that capture their semantic meanings.
+Embedding models are neural net models (e.g., transformers) that convert unstructured and complex data, such as documents, images, audio, videos, or tabular data, into dense numerical vectors (i.e., embeddings) that capture their semantic meanings.
 
-Embedding is used in the Educational mode of the agent. In this mode, users can interact with an assistant and learn information by utilizing information from one of the PDFs connected with social engineering.
+Embedding is used in the agent's Educational mode. In this mode, users can interact with an assistant and learn information by utilizing information from one of the PDFs connected with social engineering.
 
 Set Voyage API Key as an environment variable in your virtual environment:
 
@@ -141,12 +138,12 @@ Expected output:
 **Work with Screenshots**
 In the `img` folder of the reposytory there are a few screenshot of the messages that you can use.
 
-```bash
 type in img
+```bash
 Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an image, or 'education_mode' or 'quit' to exit: img
 ```
 
-Than privide path to the image
+Then provide a path to the image
 /img/phishing-sms.png
 
 Expected output:

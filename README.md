@@ -1,1 +1,159 @@
-# security-ai-agent-brama
+# Security AI Agent BRAMA
+
+AI Agent Brama can help you check the security metrics and safety of the following resources: 
+* Text messages, 
+* Site URL, 
+* Email, 
+* Phone number, 
+* SMS. 
+
+You can also use the educational mode to learn more about social engineering and cybersecurity threats, such as scams and phishing.
+
+Some platforms, like email services, constantly improve their spam filters, and cyber criminals are learning to bypass them. Many channels are hard to protect, like direct calls, SMS, and messengers. These channels are used for phishing, scams, and vishing.
+
+
+*BRAMA agent* is going to help users receive additional context regarding suspicious emails, messages, and SMS.
+
+Agent utilize Anthropic Claude Models to analize the conext. 
+Together with information from 3d party APIs and resources, the agent can provide additional context:
+* Whether the URL was marked as malicious or used for phishing
+* Whether the phone number that is calling/sending SMS to you is being used for scams, phishing, or other suspicious activities
+* Check the sender's email and content  
+* Checks the Domain-based Message Authentication, Reporting, and Conformance (DMARC) record of a domain
+
+After processing by the BRAMA agent, you will receive a comprehensive analysis of the messages or content, providing you with the necessary information to make informed decisions.
+
+If the input contains multiple data types to check (domain, phone, email), we call agent tools one by one.
+Note: Some cases can work with errors. Error management needs to be improved.
+
+# Installation
+
+Clone the repository
+```bash
+git clone https://github.com/oborys/security-ai-agent-brama.git
+```
+Go to your project folder
+```bash
+cd security-ai-agent-brama
+```
+
+Set up a Python venv
+
+To get started, ensure that Python 3 is installed on your machine. Then, we'll create a virtual environment using venv to keep our project dependencies separate from the rest of the system.
+
+Install virtualenv via pip
+```bash
+pip install virtualenv
+```
+
+Create the venv
+```bash
+python3 -m venv venv
+```
+
+Activate your venv
+```bash
+source venv/bin/activate
+```
+
+Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+## Configuration. Set related API Key
+
+In the project utilized 3d party APIs.
+
+Majoryty of APIs are free with usage limitation, you need register and retrive your API Key.
+
+1. Get Anthropic API Key here [https://console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
+
+Set Anthropic API Key as an environment variable in your virtual environment:
+
+```bash
+export ANTHROPIC_API_KEY="YOUR_API_KEY"
+```
+
+2. Get VirusTotal API Key here [https://www.virustotal.com/gui/my-apikey](https://www.virustotal.com/gui/my-apikey)
+
+VirusTotal inspects items with over 70 antivirus scanners and URL/domain blocklisting services, in addition to a myriad of tools to extract signals from the studied content. 
+
+Set VirusTotal API Key as an environment variable in your virtual environment:
+
+```bash
+export VT_API_KEY="YOUR_API_KEY"
+```
+
+3. Get Brave API Key here [https://api.search.brave.com/register](https://api.search.brave.com/register)
+
+The agent uses Brave Search API to search for information about phone numbers. Then, we use this information for further analysis.
+
+Set Brave API Key as an environment variable in your virtual environment:
+```bash
+export BRAVE_API_KEY="YOUR_API_KEY"
+```
+
+4. Get Voyage AI API Key here [https://dash.voyageai.com/api-keys](https://dash.voyageai.com/api-keys)
+
+Voyage AI provides cutting-edge embedding and rerankers.
+Embedding models are neural net models (e.g., transformers) that convert unstructured and complex data, such as documents, images, audios, videos, or tabular data, into dense numerical vectors (i.e. embeddings) that capture their semantic meanings.
+
+Embedding is used in the Educational mode of the agent. In this mode, users can interact with an assistant and learn information by utilizing information from one of the PDFs connected with social engineering.
+
+Set Voyage API Key as an environment variable in your virtual environment:
+
+```bash
+export VOYAGE_API_KEY="YOUR_API_KEY"
+```
+
+5. URLhaus API using in agent without API Key
+
+## Usage
+
+Run the agent
+```bash
+python agentBrama.py  
+```
+
+Expected output:
+```bash
+Hi, this is an AI Agent Brama, who can help you check the security metrics and safety of the following resources: 
+Text messages, Site URL, Email, Phone number, and SMS. You can also use the educational mode to learn more about social engineering and cybersecurity threats, such as scams and phishing.
+
+Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an image, or 'education_mode' or 'quit' to exit: 
+```
+
+**Work with URL**
+
+type in URL
+```bash
+http://117.222.254.157:39234/Mozi.m
+```
+
+Expected output:
+![img](img/agent-output-sample-domain.png)
+
+
+**Work with Screenshots**
+In the `img` folder of the reposytory there are a few screenshot of the messages that you can use.
+
+```bash
+type in img
+Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an image, or 'education_mode' or 'quit' to exit: img
+```
+
+Than privide path to the image
+/img/phishing-sms.png
+
+Expected output:
+![img](img/agent-output-sample-image.png)
+
+**Work with Phone Numbers**
+Scam number 202-221-7923
+
+## Educational mode
+
+![img](img/educational_mode.png)
+
+## Roadmap

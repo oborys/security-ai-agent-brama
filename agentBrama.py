@@ -26,6 +26,8 @@ BRAVE_API_KEY=os.environ.get('BRAVE_API_KEY')
 
 anthropic_api_key = os.environ.get('ANTHROPIC_API_KEY')
 voyage_api_key = os.environ.get('VOYAGE_API_KEY')
+umbrella_api_client = os.environ.get('UMBRELLA_API_CLIENT')
+umbrella_api_secret = os.environ.get('UMBRELLA_API_SECRET')
 
 if not BRAVE_API_KEY or not voyage_api_key or not voyage_api_key:
     raise ValueError("API keys not found. Please set BRAVE_API_KEY, VOYAGE_API_KEY, and ANTHROPIC_API_KEY environment variables.")
@@ -81,6 +83,43 @@ class CybersecurityAgent:
             return response.text
         except KeyError:
             return "Error: Invalid response data from VirusTotal API"
+
+    def getDomainsRiskScore(self, url):
+
+        api_url = "https://api.umbrella.com/auth/v2/token"
+
+        usrAPIClientSecret = umbrella_api_client + ":" + umbrella_api_secret
+        basicUmbrella = base64.b64encode(usrAPIClientSecret.encode()).decode()
+        HTTP_Request_header = {"Authorization": "Basic %s" % basicUmbrella,
+                                "Content-Type": "application/json;"}
+
+        payload = json.dumps({
+        "grant_type": "client_credentials"
+        })
+
+        response = requests.request("GET", api_url, headers=HTTP_Request_header, data=payload)
+        print(response)
+
+        try:
+            accessToken = response.json()['access_token']
+
+        except KeyError:
+            return "Error: Invalid response data from Umbrella; check your API credential"
+        
+
+        api_url = "https://api.umbrella.com/investigate/v2/domains/risk-score/{}".format(url)
+
+        payload = {}
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+        response = requests.request("GET", api_url, headers=headers, data=payload)
+
+        json_data = response.json()
+
+        return {"domain": url, "risk_score": json_data["risk_score"]}
     
 
     def analyze_domain(self, url):
@@ -88,11 +127,14 @@ class CybersecurityAgent:
         if vt_data.startswith("Error:"):
             return vt_data
         urlhaus_data = self.queryUrlHause(url)
+        umbrella_data = self.getDomainsRiskScore(url)
+        print(umbrella_data)
 
         template = """
         Analyze the following JSON data from two domain scan sources:
         VirusTotal scan: {JSON_DATA_Virus_Total}
         URLhaus scan: {JSON_DATA_URL_HOUSE}
+        Umbrella scan: {JSON_DATA_Umbrella}
 
         Based on the analysis, generate a brief assessment following these rules:
         1. Start with "Based on related databases, domain identified as [malicious/suspicious/secure]"
@@ -101,14 +143,15 @@ class CybersecurityAgent:
         4. Use "secure" if VirusTotal harmless count is high and malicious/suspicious counts are 0, and URLhaus query_status is "no_results"
         5. Highlight the URL status as online/offline/unknown from URLhaus data
         6. Check the blacklists key in URLhaus data and highlight if the domain is identified as a spammer domain, phishing domain, botnet C&C domain, compromised website, or not listed
-        7. Provide a short summary of up to 10 words
-        8. Add a brief description if needed, focusing on key findings
+        7. Check Umbrella scan data. The domain is malicious if the domain risk_score value is close to 100. Domains with risk_score values from 0 to 40 are safe.
+        8. Provide a short summary of up to 10 words
+        9. Add a brief description if needed, focusing on key findings
 
         Output the assessment in a concise paragraph.
         """
-        prompt = PromptTemplate(template=template, input_variables=["JSON_DATA_Virus_Total", "JSON_DATA_URL_HOUSE"])
+        prompt = PromptTemplate(template=template, input_variables=["JSON_DATA_Virus_Total", "JSON_DATA_URL_HOUSE", "JSON_DATA_Umbrella"])
         chain = prompt | self.llm | RunnableLambda(lambda x: x.content)
-        return chain.invoke({"JSON_DATA_Virus_Total": vt_data, "JSON_DATA_URL_HOUSE": urlhaus_data})
+        return chain.invoke({"JSON_DATA_Virus_Total": vt_data, "JSON_DATA_URL_HOUSE": urlhaus_data, "JSON_DATA_Umbrella": umbrella_data})
 
     def describe_image(self, image_path):
         with Image.open(image_path) as img:

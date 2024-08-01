@@ -113,6 +113,21 @@ export VOYAGE_API_KEY="YOUR_API_KEY"
 
 5. URLhaus API using in agent without API Key
 
+6. Get Cisco Umbrella API Key here [https://signup.umbrella.com/](https://signup.umbrella.com/) 
+
+[Add Umbrella API Key documentation](https://docs.umbrella.com/umbrella-user-guide/docs/add-umbrella-api-keys)
+
+Set Umbrella as an environment variable in your virtual environment:
+
+```bash
+export UMBRELLA_API_CLIENT="YOUR_Umbrella_API_Client"
+```
+
+```bash
+export UMBRELLA_API_SECRET="YOUR_Umbrella_API_Secret"
+```
+
+
 ## Usage
 
 Run the agent
@@ -130,9 +145,14 @@ Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an imag
 
 **Work with URL**
 
-Type in URL
+Type in malicious URL
 ```bash
 http://117.222.254.157:39234/Mozi.m
+```
+
+Or type in malicious URL
+```bash
+jwgruop.com
 ```
 
 Expected output:
@@ -149,7 +169,7 @@ Enter a URL, message, or write 'img', 'screenshot', or 'image' to attach an imag
 ```
 
 Then provide a path to the image
-/img/phishing-sms.png
+[path]/Users/oleksa/ml/agent/security-ai-agent-brama/img/phishing-sms.png
 
 Expected output:
 ![img](img/agent-output-sample-image.png)

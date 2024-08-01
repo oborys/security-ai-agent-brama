@@ -7,12 +7,13 @@ from langchain.chains import RetrievalQA
 import os
 import random
 from termcolor import colored
+import urllib3
 
 import warnings
 
 # Filter out all LangChain deprecation warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning, module="langchain")
-
+warnings.filterwarnings("ignore", category=urllib3.exceptions.NotOpenSSLWarning)
 
 anthropic_api_key = os.environ.get('ANTHROPIC_API_KEY')
 voyage_api_key = os.environ.get('VOYAGE_API_KEY')

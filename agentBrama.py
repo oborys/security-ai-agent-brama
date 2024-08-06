@@ -98,7 +98,7 @@ class CybersecurityAgent:
         })
 
         response = requests.request("GET", api_url, headers=HTTP_Request_header, data=payload)
-        print(response)
+
 
         try:
             accessToken = response.json()['access_token']
@@ -117,9 +117,13 @@ class CybersecurityAgent:
         }
         response = requests.request("GET", api_url, headers=headers, data=payload)
 
-        json_data = response.json()
-
-        return {"domain": url, "risk_score": json_data["risk_score"]}
+        try:
+            json_data = response.json()
+            return {"domain": url, "risk_score": json_data["risk_score"]}
+        except KeyError:
+            return "Error in receiving the results: Risk score not found in the response"
+        except Exception as e:
+            return f"Error in receiving the results: {str(e)}"
     
 
     def analyze_domain(self, url):
@@ -128,7 +132,6 @@ class CybersecurityAgent:
             return vt_data
         urlhaus_data = self.queryUrlHause(url)
         umbrella_data = self.getDomainsRiskScore(url)
-        print(umbrella_data)
 
         template = """
         Analyze the following JSON data from two domain scan sources:

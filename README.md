@@ -11,6 +11,7 @@ You can also use the educational mode to learn more about social engineering and
 
 Some platforms, like email services, constantly improve their spam filters, and cyber criminals are learning to bypass them. Many channels are hard to protect, like direct calls, SMS, and messengers. These channels are used for phishing, scams, and vishing.
 
+![Security AI Agent BRAMA](AI-Agent-BRAMA-for-security.png)
 
 *BRAMA agent* is going to help users receive additional context regarding suspicious emails, messages, and SMS.
 

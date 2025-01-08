@@ -187,6 +187,10 @@ Expected output:
 
 ![img](img/educational_mode.png)
 
+## YouTube video
+
+[![Creating an AI agent for Cybersecurity](https://img.youtube.com/vi/G1MVWl91k3E/0.jpg)](https://www.youtube.com/watch?v=G1MVWl91k3E)
+
 ## Roadmap
 
 * Improve Educational components

@@ -28,6 +28,7 @@ anthropic_api_key = os.environ.get('ANTHROPIC_API_KEY')
 voyage_api_key = os.environ.get('VOYAGE_API_KEY')
 umbrella_api_client = os.environ.get('UMBRELLA_API_CLIENT')
 umbrella_api_secret = os.environ.get('UMBRELLA_API_SECRET')
+url_hause_key = os.environ.get('URL_HAUSE_KEY')
 
 if not BRAVE_API_KEY or not voyage_api_key or not voyage_api_key:
     raise ValueError("API keys not found. Please set BRAVE_API_KEY, VOYAGE_API_KEY, and ANTHROPIC_API_KEY environment variables.")
@@ -49,15 +50,23 @@ class CybersecurityAgent:
     def queryUrlHause(self, url):
         if not url.startswith('http://') and not url.startswith('https://'):
             url = 'https://' + url
+        
+        if not url_hause_key:
+            return "Error: URL_HAUSE_KEY environment variable not set."
+        
         data = {'url': url}
-        response = requests.post('https://urlhaus-api.abuse.ch/v1/url/', data=data)
+        headers = {
+            'Auth-Key': url_hause_key
+        }
+        
+        response = requests.post('https://urlhaus-api.abuse.ch/v1/url/', headers=headers, data=data)
         json_response = response.json()
+        
         if json_response['query_status'] == 'ok':
             return json.dumps(json_response, indent=4, sort_keys=False)
         elif json_response['query_status'] == 'no_results':
             url = 'http://' + url[8:]
-            data = {'url': url}
-            response = requests.post('https://urlhaus-api.abuse.ch/v1/url/', data=data)
+            response = requests.post('https://urlhaus-api.abuse.ch/v1/url/', headers=headers, data={'url': url})
             json_response = response.json()
             if json_response['query_status'] == 'ok':
                 return json.dumps(json_response, indent=4, sort_keys=False)

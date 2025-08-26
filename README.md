@@ -112,9 +112,15 @@ Set Voyage API Key as an environment variable in your virtual environment:
 export VOYAGE_API_KEY="YOUR_API_KEY"
 ```
 
-5. URLhaus API using in agent without API Key
+5. Get URLhaus Auth-Key here [https://auth.abuse.ch/](https://auth.abuse.ch/)
 
-6. Get Cisco Umbrella API Key here [https://signup.umbrella.com/](https://signup.umbrella.com/) 
+Set URLhaus Auth-Key as an environment variable in your virtual environment:
+
+```bash
+export URL_HAUSE_KEY="YOUR_Auth_KEY"
+```
+
+7. Get Cisco Umbrella API Key here [https://signup.umbrella.com/](https://signup.umbrella.com/) 
 
 [Add Umbrella API Key documentation](https://docs.umbrella.com/umbrella-user-guide/docs/add-umbrella-api-keys)
 

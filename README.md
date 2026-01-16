@@ -7,7 +7,7 @@ AI Agent Brama can help you check the security metrics and safety of the followi
 * Phone number, 
 * SMS. 
 
-You can also use the educational mode to learn more about social engineering and cybersecurity threats, such as scams and phishing.
+You can also use the educational mode to learn about social engineering and cybersecurity threats, such as scams and phishing.
 
 Some platforms, like email services, constantly improve their spam filters, and cyber criminals are learning to bypass them. Many channels are hard to protect, like direct calls, SMS, and messengers. These channels are used for phishing, scams, and vishing.
 
